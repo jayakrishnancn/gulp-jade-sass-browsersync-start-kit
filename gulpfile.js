@@ -8,7 +8,9 @@ var gulp =require('gulp'),
     plumber = require('gulp-plumber'),
     htmlmin = require('gulp-html-minifier'),
     uglify = require('gulp-uglify'),
-    prettify = require('gulp-jsbeautifier');
+    prettify = require('gulp-jsbeautifier'),/*
+  cleanCSS = require('gulp-clean-css'),*/
+    gulpif = require('gulp-if');
 
 /* ------------------------ Directory Settings ---------------------- */
 var devPath  = './dev',
@@ -31,9 +33,9 @@ var destPath = "./dest",
 /* ------------------------ task config Settings ---------------------- */
 
 var  portNumber= 8001; /* port for browserSync UI */
-
+var minification =false; /* set to false if output showld not be minified html,css,js */
 var sassSettings={
-      outputStyle: 'expanded',
+      outputStyle: (minification===true)?'compressed': 'expanded',
       onError: browserSync.notify
     };
 
@@ -123,16 +125,12 @@ gulp.task('sass',function(){
   return gulp.src(sassmatch)
         .pipe(plumber(plumberSettings))
         .pipe(sass(sassSettings)).on('error',function(e){console.log(e);})
-        .pipe(autoprefixer(autoprefixerSettings))
+        .pipe(autoprefixer(autoprefixerSettings)) 
         .pipe(gulp.dest(cssPath))
         .pipe(browserSync.reload({stream:true}))
         .pipe(gulp.dest(devCssPath))
 });
-
-/*gulp.task('jadetest',function(){
-  return gulp.src(jadeallmatch)
-        .pipe(jade(jadeSettings)) 
-});*/
+ 
  
 /* ------------------------ jade  task ---------------------- */
 gulp.task('jade',function(){
@@ -140,7 +138,7 @@ gulp.task('jade',function(){
   return gulp.src(jadematch)
         .pipe(plumber(plumberSettings))
         .pipe(jade(jadeSettings))
-        /*.pipe(htmlmin(htmlSettings))*/
+        .pipe(gulpif(minification===true, htmlmin(htmlSettings)))
         .pipe(gulp.dest(htmlPath)) 
 
 });
@@ -151,7 +149,7 @@ gulp.task('scripts',function(){
   return gulp.src(jsmatch) 
         .pipe(plumber(plumberSettings))
         .pipe(rename({suffix:'.min'}))
-        /*.pipe(uglify(uglifySettings))*/
+        .pipe(gulpif(minification===true,uglify(uglifySettings))) 
         .pipe(prettify())
         .pipe(gulp.dest(jsPath))
 });
@@ -161,7 +159,7 @@ gulp.task('scripts',function(){
 gulp.task('imgmin',function(){
   return gulp.src(imgmatch)
         .pipe(plumber(plumberSettings))
-        .pipe(imagemin())
+        .pipe(gulpif(minification===true,imagemin()))  
         .pipe(gulp.dest(imgPath))
 });
 
