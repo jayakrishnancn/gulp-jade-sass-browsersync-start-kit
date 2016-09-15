@@ -1,21 +1,33 @@
 {
-  "name": "achayanshomestayv2",
-  "version": "2.0.0",
-  "description": "ACHAYANS HOMESTAY WITH MODIFIED UI DESIGN",
-  "main": "index.js",
+  "name": "gulp-sass-jade-browsersync-template",
+  "version": "1.0.0",
+  "main": "gulpfile.js",
   "dependencies": {
-    "gulp-zip": "^3.2.0"
+    "browser-sync": "^2.14.3",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.1", 
+    "gulp-html-minifier": "^0.1.8", 
+    "gulp-imagemin": "^3.0.3",
+    "gulp-jade": "^1.1.0",
+    "gulp-jsbeautifier": "^2.0.3",
+    "gulp-plumber": "^1.1.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^2.3.2",
+    "gulp-uglify": "^2.0.0" 
   },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [
-    "ACHAYANS",
-    "HOMESTAY",
-    "UI",
-    "DESIGN"
-  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jayakrishnancn/gulp-jade-sass-browsersync-start-kit.git"
+  },
   "author": "jayakrishnancn",
-  "license": "ISC"
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jayakrishnancn/gulp-jade-sass-browsersync-start-kit/issues"
+  },
+  "homepage": "https://github.com/jayakrishnancn/gulp-jade-sass-browsersync-start-kit#readme",
+  "description": ""
 }
